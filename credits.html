@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>特別感謝｜小貓吃餅乾</title>
+  <style>
+    body {
+      background-color: #fff;
+      font-family: 'Comic Sans MS', cursive;
+      text-align: center;
+      padding: 1.5rem;
+    }
+
+    .credits-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.5rem;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .credits-container img:nth-of-type(1) {
+        width: 80%;
+        max-width: 400px;
+    }
+
+    .credits-container img:nth-of-type(2) {
+        width: 50%;
+        max-width: 200px;
+    }
+
+
+    .credits-text {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: #333;
+      padding: 0 1rem;
+    }
+    .back-btn {
+    width: 120px !important;   /* 加上 !important 強制生效 */
+    height: auto;
+    cursor: pointer;
+    transition: transform 0.2s;
+    }
+
+    .back-btn:hover {
+    transform: scale(1.05);
+    }
+    .credits-container img:hover {
+        animation: wiggle 0.4s ease-in-out;
+        }
+
+    @keyframes wiggle {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(3deg); }
+            50% { transform: rotate(0deg); }
+            75% { transform: rotate(-3deg); }
+            100% { transform: rotate(0deg); }
+        }
+  </style>
+</head>
+<body>
+  <div class="credits-container">
+    <!-- 標題圖片 -->
+    <img src="img/logo_credits.png" alt="Credits Logo">
+
+    <!-- 主圖片 -->
+    <img src="img/whisky.png" alt="感謝圖" class="main-image">
+
+    <!-- 說明文字 -->
+    <div class="credits-text">
+      我晚點再打</a>
+    </div>
+
+    <!-- 返回按鈕（使用圖檔） -->
+    <a href="index.html">
+      <img class="back-btn" src="img/btm_back(up).png" alt="返回首頁">
+    </a>
+  </div>
+  <!-- 加在 body 最後面 -->
+<audio id="back-sound" src="sfx/Click Sound Effects .aac" preload="auto"></audio>
+
+<script>
+  const backBtn = document.querySelector('.back-btn');
+  const backSound = document.getElementById('back-sound');
+
+  backBtn.addEventListener('click', function (event) {
+    event.preventDefault(); // 暫停跳轉
+    backSound.currentTime = 0;
+    backSound.play();
+
+    // 等音效播完再跳轉（可改時間對齊音效長度）
+    setTimeout(() => {
+      window.location.href = 'index.html';
+    }, 300); // 0.3 秒，可根據音效長度微調
+  });
+</script>
+
+</body>
+</html>
