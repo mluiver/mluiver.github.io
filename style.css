@@ -1,105 +1,113 @@
 /*電腦版設定開始*/
 
 @media screen and (min-width: 768px) {
-    
-    /*貓咪圖片的設定*/
-    #cat-img {
-        width: 600px;     /* ✅ 自訂寬度 */
-        max-width: 100%;  /* ✅ 保持不會超出容器 */
-        height: auto;     /* ✅ 等比例縮放 */
-        display: block;
-        margin-top: 1rem;
-    }
-    /*LOGO設定*/
-    .site-title picture img {
-    width: 300px; /* ✅ 你可以調成你要的數值，例如 200px、400px */
-    height: auto;
-    display: block;
-}
-    /*LAYOUT設定*/
-    .container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 2rem;
-        margin-top: 2rem;
-    }
-    .main-layout {
-        display: flex;
-        justify-content: center;
-        align-items: flex-start;
-        gap: 3rem;
-        max-width: 1200px;
-        margin: 2rem auto;
+    body {
+        background-image: url('img/bg_paper.jpg');
+        background-repeat: repeat;
+        background-size: auto;
+        margin: 0;
+        padding-top: 0;
+        text-align: center;
+        font-family: 'Comic Sans MS', cursive;
     }
 
-    .right-panel {
-        flex: 0 0 60%;
+    .main-layout {
         display: flex;
+        flex-direction: row;
         justify-content: center;
-        align-items: center;
+        align-items: flex-start;
+        max-width: 1200px;
+        margin: 2rem auto;
+        gap: 3rem;
     }
+
     .left-panel {
-        flex: 0 0 40%;
+        display: grid;
+        grid-template-columns: 30% 70%;
+        align-items: flex-start;
+        width: 100%;
+        gap: 2rem;
+    }
+
+    .site-title {
+        grid-column: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 5rem; 
+    }
+
+    .site-title img {
+        width: 100%;
+        max-width: 300px;
+        min-width: 150px;
+        display: block;
+        margin: 0 auto;
+        margin-bottom: 0rem
+        
+    }
+
+    #button-group {
+        grid-column: 1;
+        margin-top: -0.5rem;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.1rem;
+        transform: translateY(-150px);
+    }
+
+    .cat-story-wrapper {
+        grid-column: 2;
         display: flex;
         flex-direction: column;
         align-items: center;
         gap: 1rem;
     }
 
-
-
-    /*按鈕排列*/
-    #button-group {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        gap: 0.5rem;
-    }
-
-
-    /*標題的設定*/
-    .site-title{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-        }
-
-    .site-title img {
-        width: 100%;
-        max-width: 300px; /* ✅ 上限不超過 300px */
-        min-width: 150px; /* ✅ 下限避免太小（可選） */
+    #cat-img {
+        max-height: 500px;
+        height: auto;
         display: block;
-        margin: 0 auto;
-    }
-    .site-title a {
-    display: inline-block;
     }
 
-    .site-title a img {
-    cursor: pointer;
-    }
-
-    /*主要的東西*/
-    body {
-        margin: 0; 
-        padding-top: 0;
-        background: #fff;
-        text-align: center;
-        font-family: 'Comic Sans MS', cursive;
-    }
-    img {
+    #story-box {
         width: 100%;
-        max-width: 400px;
+        max-width: 600px;
+        min-height: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
     }
+
     .btn {
         width: 120px;
-        margin: 0.2rem 0.5rem; /* 上下間距跟左右 */
+        margin: 0.2rem 0.5rem;
         cursor: pointer;
     }
-    
-    /*動畫*/
+
+    .story-text {
+        font-size: 1.5rem;
+        color: #4a3d36;
+        font-family: 'Comic Sans MS', cursive;
+        max-width: 80%;
+        margin: 2rem auto;
+        text-align: center;
+        line-height: 1.6;
+        opacity: 0;
+        animation: fadeIn 1s forwards;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    #cat-img.fade-in {
+        animation: fadeIn 1s forwards;
+    }
+
     @keyframes wiggle {
         0% { transform: rotate(0deg); }
         25% { transform: rotate(3deg); }
@@ -107,89 +115,133 @@
         75% { transform: rotate(-3deg); }
         100% { transform: rotate(0deg); }
     }
+
     img:hover {
-    animation: wiggle 0.4s ease-in-out;
+        animation: wiggle 0.4s ease-in-out;
     }
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.7);  /* 半透明底色 */
+  font-size: 0.9rem;
+  color: #6e5e54;
+  text-align: center;
+  padding: 0.5rem 1rem;
+  font-family: 'Comic Sans MS', cursive;
+  z-index: 999;
+  backdrop-filter: blur(4px); /* 背景模糊效果 */
+}
+
+.footer-link {
+  color: #4a3d36;
+  text-decoration: none;
+  margin-left: 0.5rem;
+}
+
+.footer-link:hover {
+  text-decoration: underline;
+}
+
+}
 /*電腦版設定結束*/
 
 /*-----------------------------------------------------------------------------------------------*/
 
 /*手機版設定開始*/
 @media screen and (max-width: 769px) {
-    
-    /*貓咪圖片的設定*/
-    #cat-img {
-        margin-top: 1rem;
+
+    body {
+        background-image: url('img/bg_paper.jpg');
+        background-repeat: repeat;
+        background-size: auto;
+        margin: 0;
+        padding-top: 0;
+        text-align: center;
+        font-family: 'Comic Sans MS', cursive;
     }
 
-    /*版面*/
     .main-layout {
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 1.5rem;
-        padding: 1rem;
     }
 
-    .site-title {
-        order: 1;
-    }
-
-    .right-panel {
-        order: 2;
-    }
-
-    #button-group {
-        order: 3;
-        display: flex;
-        justify-content: center;
-        gap: 1rem;
-        flex-wrap: wrap;
-        margin-top: 1rem;
-    }
     .left-panel {
-        display: contents;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        gap: 1.5rem;
     }
 
-    /*標題的設定*/
     .site-title {
+        width: 100%;
         text-align: center;
-        margin-bottom: 1.5rem;
+        margin: 1rem 0;
     }
 
     .site-title img {
-        max-width: 500px;
+        width: 80%;
+        max-height: 400px;
         height: auto;
-        display: block;
-        margin: 0 auto;
-    }
-    .site-title a {
-    display: inline-block;
     }
 
-    .site-title a img {
-    cursor: pointer;
-    }
-
-    /*主要的東西*/
-    body {
-        margin: 0; 
-        padding-top: 0;
-        background: #fff;
-        text-align: center;
-        font-family: 'Comic Sans MS', cursive;
-    }
-    img {
+    .cat-story-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
         width: 100%;
-        max-width: 400px;
     }
+
+    #cat-img {
+        max-width: 500px;
+        width: 100%;
+        height: auto;
+    }
+
+    #story-box {
+        width: 90%;
+        max-width: 600px;
+        padding: 0 1rem;
+        min-height: 160px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #button-group {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 1rem;
+        margin-top: 1rem;
+        width: 100%;
+    }
+
     .btn {
-        width: 150px;
-        margin: 1rem;
+        width: 120px;
+        margin: 0.5rem;
         cursor: pointer;
     }
 
-    /*動畫*/
+    .story-text {
+        font-size: 1.1rem;
+        color: #4a3d36;
+        font-family: 'Comic Sans MS', cursive;
+        line-height: 1.6;
+        text-align: center;
+        opacity: 0;
+        animation: fadeIn 1s forwards;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
     @keyframes wiggle {
         0% { transform: rotate(0deg); }
         25% { transform: rotate(3deg); }
@@ -197,9 +249,35 @@
         75% { transform: rotate(-3deg); }
         100% { transform: rotate(0deg); }
     }
+
     img:hover {
-    animation: wiggle 0.4s ease-in-out;
+        animation: wiggle 0.4s ease-in-out;
     }
+    .footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.7);  /* 半透明底色 */
+  font-size: 0.9rem;
+  color: #6e5e54;
+  text-align: center;
+  padding: 0.5rem 1rem;
+  font-family: 'Comic Sans MS', cursive;
+  z-index: 999;
+  backdrop-filter: blur(4px); /* 背景模糊效果 */
+}
+
+.footer-link {
+  color: #4a3d36;
+  text-decoration: none;
+  margin-left: 0.5rem;
+}
+
+.footer-link:hover {
+  text-decoration: underline;
+}
+
 
 }
 /*手機版設定結束*/

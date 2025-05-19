@@ -1,102 +1,120 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>特別感謝｜小貓吃餅乾</title>
-  <style>
-    body {
-      background-color: #fff;
-      font-family: 'Comic Sans MS', cursive;
-      text-align: center;
-      padding: 1.5rem;
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>特別感謝</title>
+    <audio id="meow-sound" src="sfx/meow1.aac" preload="auto"></audio>
+    <style>
+      body {
+        background-image: url('img/bg_paper.jpg');
+        background-repeat: repeat;
+        background-size: auto;
+        font-family: 'Comic Sans MS', cursive;
+        text-align: center;
+        padding: 1.5rem;
+      }
+
+      .credits-container {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 1.5rem;
+          max-width: 600px;
+          margin: 0 auto;
+      }
+
+      .credits-container img:nth-of-type(1) {
+          width: 80%;
+          max-width: 400px;
+      }
+
+      .credits-container img:nth-of-type(2) {
+          width: 50%;
+          max-width: 200px;
+      }
+
+
+      .credits-text {
+        font-size: 1.1rem;
+        line-height: 1.8;
+        color: #333;
+        padding: 0 1rem;
+      }
+      .back-btn {
+      width: 120px !important;   /* 加上 !important 強制生效 */
+      height: auto;
+      cursor: pointer;
+      transition: transform 0.2s;
+      }
+
+      .back-btn:hover {
+      transform: scale(1.05);
+      }
+      .credits-container img:hover {
+          animation: wiggle 0.4s ease-in-out;
+          }
+
+      @keyframes wiggle {
+              0% { transform: rotate(0deg); }
+              25% { transform: rotate(3deg); }
+              50% { transform: rotate(0deg); }
+              75% { transform: rotate(-3deg); }
+              100% { transform: rotate(0deg); }
+          }
+      .footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background-color: rgba(255, 255, 255, 0.7);  /* 半透明底色 */
+        font-size: 0.9rem;
+        color: #6e5e54;
+        text-align: center;
+        padding: 0.5rem 1rem;
+        font-family: 'Comic Sans MS', cursive;
+        z-index: 999;
+        backdrop-filter: blur(4px); /* 背景模糊效果 */
+      }
+
+    .footer-link {
+      color: #4a3d36;
+      text-decoration: none;
+      margin-left: 0.5rem;
     }
 
-    .credits-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 1.5rem;
-        max-width: 600px;
-        margin: 0 auto;
+    .footer-link:hover {
+      text-decoration: underline;
     }
-
-    .credits-container img:nth-of-type(1) {
-        width: 80%;
-        max-width: 400px;
-    }
-
-    .credits-container img:nth-of-type(2) {
-        width: 50%;
-        max-width: 200px;
-    }
-
-
-    .credits-text {
-      font-size: 1.1rem;
-      line-height: 1.8;
-      color: #333;
-      padding: 0 1rem;
-    }
-    .back-btn {
-    width: 120px !important;   /* 加上 !important 強制生效 */
-    height: auto;
-    cursor: pointer;
-    transition: transform 0.2s;
-    }
-
-    .back-btn:hover {
-    transform: scale(1.05);
-    }
-    .credits-container img:hover {
-        animation: wiggle 0.4s ease-in-out;
-        }
-
-    @keyframes wiggle {
-            0% { transform: rotate(0deg); }
-            25% { transform: rotate(3deg); }
-            50% { transform: rotate(0deg); }
-            75% { transform: rotate(-3deg); }
-            100% { transform: rotate(0deg); }
-        }
-  </style>
-</head>
-<body>
-  <div class="credits-container">
-    <!-- 標題圖片 -->
-    <img src="img/logo_credits.png" alt="Credits Logo">
-
-    <!-- 主圖片 -->
-    <img src="img/whisky.png" alt="感謝圖" class="main-image">
-
-    <!-- 說明文字 -->
-    <div class="credits-text">
-      我晚點再打</a>
+    </style>
+  </head>
+  <body>
+    <div class="credits-container">
+      <img src="img/logo_credits.png" alt="Credits Logo">
+      <img src="img/whisky.png" alt="感謝圖" class="main-image">
+      <div class="credits-text">感謝我的貓，感謝我自己，像是做了一款小遊戲，是個很有趣的體驗。</a></div>
+      <a href="index.html">
+        <img class="back-btn" src="img/btm_back(up).png" alt="返回首頁">
+      </a>
     </div>
+    <audio id="back-sound" src="sfx/Click Sound Effects .aac" preload="auto"></audio>
+    <script>
+      const backBtn = document.querySelector('.back-btn');
+      const backSound = document.getElementById('back-sound');
 
-    <!-- 返回按鈕（使用圖檔） -->
-    <a href="index.html">
-      <img class="back-btn" src="img/btm_back(up).png" alt="返回首頁">
-    </a>
-  </div>
-  <!-- 加在 body 最後面 -->
-<audio id="back-sound" src="sfx/Click Sound Effects .aac" preload="auto"></audio>
+      backBtn.addEventListener('click', function (event) {
+        event.preventDefault(); 
+        backSound.currentTime = 0;
+        backSound.play();
+        setTimeout(() => {
+          window.location.href = 'index.html';
+        }, 300); 
+      });
+    </script>
+    <footer class="footer">
+  © 2025 FatMimi Simulator · 
+  <a href="https://www.instagram.com/mluiver/" target="_blank" class="footer-link">Follow us on IG</a>
+</footer>
 
-<script>
-  const backBtn = document.querySelector('.back-btn');
-  const backSound = document.getElementById('back-sound');
-
-  backBtn.addEventListener('click', function (event) {
-    event.preventDefault(); // 暫停跳轉
-    backSound.currentTime = 0;
-    backSound.play();
-
-    // 等音效播完再跳轉（可改時間對齊音效長度）
-    setTimeout(() => {
-      window.location.href = 'index.html';
-    }, 300); // 0.3 秒，可根據音效長度微調
-  });
-</script>
-
-</body>
+  </body>
 </html>

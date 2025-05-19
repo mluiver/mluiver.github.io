@@ -1,132 +1,172 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>胖貓吃飯</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>胖貓吃飯</title>
+    <audio id="meow-sound" src="sfx/meow1.aac" preload="auto"></audio>
+    <audio id="bgm" loop preload="auto">
+  <source src="sfx/bgmusic.aac" type="audio/aac">
+</audio>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="main-layout">
-        <div class="left-panel">
-            <div class="site-title">
-            <a href="credits.html">
-                <picture>
-                <source media="(max-width: 769px)" srcset="img/Logo-mb.png">
-                <img src="img/Logo-pc.png" alt="mimi eat Simulator">
-                </picture>
-            </a>
-            </div>
-            <div id="button-group"></div>
+      <div class="left-panel">
+        <div class="site-title">
+          <a href="credits.html">
+            <picture>
+              <source media="(max-width: 769px)" srcset="img/Logo-mb.png">
+              <img src="img/Logo-pc.png" alt="mimi eat Simulator">
+            </picture>
+          </a>
         </div>
 
-        <div class="right-panel">
-            <img id="cat-img">
+        <div class="cat-story-wrapper">
+          <img id="cat-img">
+          <div id="story-box" class="story-text"></div>
         </div>
 
         <div id="button-group"></div>
-        </div>
-
+      </div>
+    </div>
 
     <audio id="audio-click" src="sfx/Click Sound Effects .aac" preload="auto"></audio>
     <audio id="audio-eat" src="sfx/eating Sound Effects .aac" preload="auto"></audio>
 
     <script>
+        const bgm = document.getElementById('bgm');
         const catImg = document.getElementById('cat-img');
         const btnGroup = document.getElementById('button-group');
         const audioClick = document.getElementById('audio-click');
         const audioEat = document.getElementById('audio-eat');
 
         function playClickSound() {
-        audioClick.currentTime = 0;
-        audioClick.play();
+          audioClick.currentTime = 0;
+          audioClick.play();
         }
 
         function playEatSound() {
-        audioEat.currentTime = 0;
-        audioEat.play();
+          audioEat.currentTime = 0;
+          audioEat.play();
         }
 
         const states = [
-        {
-        name: "初始(無盆)",
-        image: "img/cat_org_default.gif",
-        stay: "wait",
-        buttons: ["餵食", "不餵食"],
-        transitions: { feed: "被餵食後1(有盆，有食物的情況)",
-            nofood: "不餵食後(無盆)" }
-        },
-        {
-        name: "被餵食後1(有盆，有食物的情況)",
-        image: "img/cat_org_default_havedinner.gif",
-        stay: 2000,
-        buttons: [],
-        transitions: { auto: "被餵食後2(有盆，有食物的情況)" }
-        },
-        {
-        name: "被餵食後2(有盆，有食物的情況)",
-        image: "img/cat_eat.gif",
-        stay: 5000,
-        buttons: [],
-        transitions: { auto: "被餵食結束(有盆，沒食物的情況)" }
-        },
-        {
-        name: "被餵食結束(有盆，沒食物的情況)",
-        image: "img/cat_org_default_nodinner.gif",
-        stay: 2000,
-        buttons: [],
-        transitions: { auto: "被餵食後，第一輪結束預設回復" }
-        },
-        {
-        name: "被餵食後，第一輪結束預設回復",
-        image: "img/cat_org_default_nodinner.gif",
-        stay: "wait",
-        buttons: ["餵食", "不餵食"],
-        transitions: {
-            feed: "被餵食後1(有盆，有食物的情況)",
-            nofood: "不餵食後(有盆)"
-        }
-        },
-        {
-        name: "不餵食後(無盆)",
-        image: "img/cat_org_annoyed.gif",
-        stay: 2000,
-        buttons: [],
-        transitions: { auto: "不餵食結束(無盆)" }
-        },
-        {
-        name: "不餵食後(有盆)",
-        image: "img/cat_org_annoyed_nodinner.gif",
-        stay: 2000,
-        buttons: [],
-        transitions: { auto: "不餵食結束(有盆)" }
-        },
-        {
-        name: "不餵食結束(無盆)",
-        image: "img/cat_org_default.gif",
-        stay: "wait",
-        buttons: ["餵食", "不餵食"],
-        transitions: { 
-            feed: "被餵食後1(有盆，有食物的情況)",
-            nofood: "不餵食後(無盆)"}
-        },
-        {
-        name: "不餵食結束(有盆)",
-        image: "img/cat_org_default_nodinner.gif",
-        stay: "wait",
-        buttons: ["餵食", "驅趕"],
-        transitions: { feed: "被餵食後1(有盆，有食物的情況)",
-            shoo: "依然不餵食" }
-        },
-        {
-        name: "依然不餵食",
-        image: "img/nocat_nodinner.png",
-        stay: "wait",
-        buttons: ["返回"],
-        transitions: { back: "初始(無盆)" }
-        }
-
-    ];
+          {
+            name: "初始(無盆)",
+            image: "img/cat_org_default.gif",
+            stay: "wait",
+            buttons: ["餵食", "不餵食"],
+            transitions: {
+              feed: "被餵食後1(有盆，有食物的情況)",
+              nofood: "不餵食後(無盆)"
+            }
+          },
+          {
+            name: "被餵食後1(有盆，有食物的情況)",
+            image: "img/cat_org_default_havedinner.gif",
+            stay: 2000,
+            buttons: [],
+            transitions: {
+              auto: "被餵食後2(有盆，有食物的情況)"
+            }
+          },
+          {
+            name: "被餵食後2(有盆，有食物的情況)",
+            image: "img/cat_eat.gif",
+            stay: 5000,
+            buttons: [],
+            transitions: {
+              auto: "被餵食結束(有盆，沒食物的情況)"
+            }
+          },
+          {
+            name: "被餵食結束(有盆，沒食物的情況)",
+            image: "img/cat_org_default_nodinner.gif",
+            stay: 2000,
+            buttons: [],
+            transitions: {
+              auto: "被餵食後，第一輪結束預設回復"
+            }
+          },
+          {
+            name: "被餵食後，第一輪結束預設回復",
+            image: "img/cat_org_default_nodinner.gif",
+            stay: "wait",
+            buttons: ["餵食", "不餵食"],
+            transitions: {
+              feed: "被餵食後1(有盆，有食物的情況)",
+              nofood: "不餵食後(有盆)"
+            }
+          },
+          {
+            name: "不餵食後(無盆)",
+            image: "img/cat_org_annoyed.gif",
+            stay: 2000,
+            buttons: [],
+            transitions: {
+              auto: "不餵食結束(無盆)"
+            }
+          },
+          {
+            name: "不餵食後(有盆)",
+            image: "img/cat_org_annoyed_nodinner.gif",
+            stay: 2000,
+            buttons: [],
+            transitions: {
+              auto: "不餵食結束(有盆)"
+            }
+          },
+          {
+            name: "不餵食結束(無盆)",
+            image: "img/cat_org_default.gif",
+            stay: "wait",
+            buttons: ["餵食", "不餵食"],
+            transitions: {
+              feed: "被餵食後1(有盆，有食物的情況)",
+              nofood: "不餵食後(無盆)"
+            }
+          },
+          {
+            name: "不餵食結束(有盆)",
+            image: "img/cat_org_default_nodinner.gif",
+            stay: "wait",
+            buttons: ["餵食", "驅趕"],
+            transitions: {
+              feed: "被餵食後1(有盆，有食物的情況)",
+              shoo: "依然不餵食"
+            }
+          },
+          {
+            name: "依然不餵食",
+            image: "img/nocat_nodinner.png",
+            stay: 3000,
+            buttons: [],
+            transitions: {
+              auto: "故事1"
+            }
+          },
+          {
+            name: "故事1",
+            image: "",
+            text: "在你離開胖貓之後<br>胖貓的生活越來越難<br>冬天了胖貓在大雪裡翻找著垃圾桶",
+            stay: 5000,
+            buttons: [],
+            transitions: {
+              auto: "故事2"
+            }
+          },
+          {
+            name: "故事2",
+            image: "",
+            stay: "wait",
+            buttons: ["返回"],
+            text: "他可能熬不過這個冬天了<br>在最後一刻<br>胖貓沒有吃上飯<br>也沒再見到你",
+            transitions: {
+              back: "初始(無盆)"
+            }
+          }
+        ];
 
         const stateNameToIndex = {};
         states.forEach((s, i) => stateNameToIndex[s.name] = i);
@@ -135,50 +175,85 @@
         let autoTimer = null;
 
         function gotoState(target) {
-        const index = typeof target === 'string' ? stateNameToIndex[target] : target;
-        if (index === undefined) return;
-        if (autoTimer) clearTimeout(autoTimer);
-        state = index;
-        renderState();
+          const index = typeof target === 'string' ? stateNameToIndex[target] : target;
+          if (index === undefined) return;
+          if (autoTimer) clearTimeout(autoTimer);
+          state = index;
+          renderState();
         }
 
         function renderState() {
-        const current = states[state];
-        catImg.src = current.image;
-        if (current.image.includes('cat_eat')) playEatSound();
+          const current = states[state];
 
-        btnGroup.innerHTML = '';
-        current.buttons.forEach(btn => {
+          const storyBox = document.getElementById('story-box');
+          if (current.text) {
+            storyBox.style.display = 'block';
+            storyBox.innerHTML = `<p class="story-text">${current.text}</p>`;
+            catImg.style.display = 'none';
+          } else {
+            storyBox.style.display = 'none';
+            storyBox.innerHTML = '';
+            catImg.style.display = 'block';
+          }
+
+          catImg.classList.remove('fade-in');
+          void catImg.offsetWidth;
+          catImg.src = current.image || '';
+          catImg.classList.add('fade-in');
+
+          if (current.image && current.image.includes('cat_eat')) playEatSound();
+
+          btnGroup.innerHTML = '';
+          current.buttons.forEach(btn => {
             let id = btn === '餵食' ? 'feed' :
-                    btn === '不餵食' ? 'nofood' :
-                    btn === '驅趕' ? 'shoo' :
-                    btn === '返回' ? 'back' : '';
+                     btn === '不餵食' ? 'nofood' :
+                     btn === '驅趕' ? 'shoo' :
+                     btn === '返回' ? 'back' : '';
             if (!id) return;
             const img = document.createElement('img');
             img.className = 'btn';
             img.src = `img/btm_${id}(up).png`;
             img.alt = id;
             img.addEventListener('mousedown', () => {
-            playClickSound();
-            img.src = `img/btm_${id}(dw).png`;
+              playClickSound();
+              img.src = `img/btm_${id}(dw).png`;
             });
             img.addEventListener('mouseup', () => {
             img.src = `img/btm_${id}(up).png`;
             const next = current.transitions[id];
-            if (id === 'shoo') {
-            catImg.src = 'img/nocat_nodinner.png';
+
+            if (bgm.paused) {
+                bgm.volume = 0.3;
+                bgm.play().catch(e => console.log("背景音樂播放失敗", e));
             }
+
+            if (id === 'shoo') catImg.src = 'img/nocat_nodinner.png';
             if (next) gotoState(next);
             });
             btnGroup.appendChild(img);
-        });
+          });
 
-        if (typeof current.stay === 'number' && current.transitions.auto) {
+          if (typeof current.stay === 'number' && current.transitions.auto) {
             autoTimer = setTimeout(() => gotoState(current.transitions.auto), current.stay);
-        }
+          }
         }
 
         renderState();
+
+        const audioMeow = document.getElementById('meow-sound');
+        catImg.addEventListener('pointerenter', () => {
+          audioMeow.currentTime = 0;
+          audioMeow.play();
+        });
+        catImg.addEventListener('click', () => {
+          audioMeow.currentTime = 0;
+          audioMeow.play();
+        });
     </script>
+<footer class="footer">
+  © 2025 FatMimi Simulator ·  
+  <a href="https://www.instagram.com/mluiver/" target="_blank" class="footer-link">Follow us on IG</a>
+</footer>
+
 </body>
 </html>
