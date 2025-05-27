@@ -22,11 +22,11 @@
     }
 
     .left-panel {
-      flex: 0 0 30%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 2rem;
+        display: grid;
+        grid-template-columns: 30% 70%;
+        align-items: flex-start;
+        width: 100%;
+        gap: 2rem;
     }
 
     .site-title {
