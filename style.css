@@ -22,12 +22,11 @@
     }
 
     .left-panel {
-        flex: 0 0 30%;
-        display: flex;
-        flex-direction: column;
-        lign-items: center;
-        justify-content: flex-start;  /* ✅ 確保從上往下排 */
-        gap: 0.5rem;                  /* ✅ 間距縮小，避免過遠 */
+      flex: 0 0 30%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
     }
 
     .site-title {
